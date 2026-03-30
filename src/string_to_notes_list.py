@@ -12,7 +12,7 @@ def string_to_notes_list(music_text):
 
 
         if music_text[i] in notes_dict:
-            if music_text[i+1] == "#": 
+            if len(music_text) > i+1 and music_text[i+1] == "#": 
                 j = 1
                 while(len(music_text) > i + j + 1 and music_text[i + 1 + j]== "-"):
                     j += 1
