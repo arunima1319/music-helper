@@ -1,0 +1,69 @@
+import numpy as np
+import sounddevice as sd
+import sys
+from constants import *
+
+
+def waveform_generator(freq, duration, sample_rate):
+    t = np.arange(sample_rate * duration) / sample_rate
+    waveform = 0.5 * np.sin(2. *np.pi * freq*t)
+    return waveform  
+
+def freq_duration_generator(note, length, bpm):
+    dict= {
+        "C": 1,
+        "C#" : 2,
+        "D": 3,
+        "D#": 4,
+        "E": 5,
+        "F" : 6,
+        "F#" : 7, 
+        "G" : 8, 
+        "G#": 9, 
+        "A": 10,
+        "A#": 11,
+        "B" : 12
+        
+    } 
+
+    try:
+        freq = middle_C_freq*((1.059463)**(dict[note] - 1))
+    except Exception as e: 
+        print("error: not a valid note")
+
+    duration = (length/bpm)*60
+
+    return freq, duration
+
+
+def main():
+
+    fs = 44100
+    sd.default.samplerate = fs
+
+    
+    
+
+    music = [("C", 0.5)] + [("D", 0.5)] + [("E", 0.5)]*6 + [("E", 1)] + [("E", 0.5)]*2 + [("D", 0.5)] + [("E", 0.5)] + [("F", 1)]
+    tones= []
+
+
+
+    
+
+    for note in music:  
+        tones.append(freq_duration_generator(note[0], note[1], 180))
+
+
+    list_of_waveforms = []
+    for i in range(0, len(tones)):
+        freq, duration = tones[i][0], tones[i][1]
+        list_of_waveforms.append(waveform_generator(freq, duration, fs))
+
+
+    for waveform in list_of_waveforms:
+        sd.play(waveform)
+        sd.wait()
+
+if __name__ == "__main__":
+    main()
