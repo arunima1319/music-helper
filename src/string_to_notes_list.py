@@ -8,9 +8,6 @@ def string_to_notes_list(music_text):
     
 
     while (i < len(music_text)):  #String must start with a note, not a - 
-       
-
-
         if music_text[i] in notes_dict:
             if len(music_text) > i+1 and music_text[i+1] == "#": 
                 j = 1

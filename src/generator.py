@@ -1,0 +1,35 @@
+from constants import *
+import numpy as np
+
+
+def waveform_generator(freq, duration, sample_rate):
+    t = np.arange(sample_rate * duration) / sample_rate
+    waveform = 0.5 * np.sin(2. *np.pi * freq*t)
+    return waveform  
+
+def freq_duration_generator(note, length, bpm):
+    dict= {
+        "C": 1,
+        "C#" : 2,
+        "D": 3,
+        "D#": 4,
+        "E": 5,
+        "F" : 6,
+        "F#" : 7, 
+        "G" : 8, 
+        "G#": 9, 
+        "A": 10,
+        "A#": 11,
+        "B" : 12
+        
+    } 
+
+    try:
+        freq = middle_C_freq*((1.059463)**(dict[note] - 1))
+    except Exception as e: 
+        print("error: not a valid note")
+
+    duration = (length/bpm)*60
+
+    return freq, duration
+
