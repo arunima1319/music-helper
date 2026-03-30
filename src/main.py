@@ -3,6 +3,7 @@ import sounddevice as sd
 import sys
 from constants import *
 from string_to_notes_list import string_to_notes_list
+from file_to_string import file_to_string
 from generator import waveform_generator, freq_duration_generator
 
 
@@ -12,18 +13,29 @@ def main():
     sd.default.samplerate = fs
 
     if len(sys.argv) == 2: 
-        music_string = sys.argv[1]
+        if sys.argv[1][-4:] == ".txt":
+            melody_source = PlayType.FILE
+            music_string = file_to_string(sys.argv[1])
+  
+        else:
+            melody_source = PlayType.CLI
+            music_string = sys.argv[1]
+        
 
     elif len(sys.argv) == 1:
         music_string = "CDEEEEEEE--EEDEF--"
+        
  
     else:
-        print("Your melody should not have spaces in between")
+        print("Invalid argument. Please enter the name of a single melody file or a single melody string")
         return;
         
 
     try: 
+
+        print(melody_source)
         music = string_to_notes_list(music_string)
+    
     except Exception as e:
         print(e)
         return; 
@@ -34,7 +46,7 @@ def main():
     tones= []
 
     for note in music:  
-        tones.append(freq_duration_generator(note[0], note[1], 100))
+        tones.append(freq_duration_generator(note[0], note[1], 60))
 
 
     list_of_waveforms = []

@@ -1,3 +1,10 @@
+from enum import Enum 
+
+class PlayType(Enum):
+    CLI = "cli_string"
+    FILE = "textfile"
+
+
 notes_dict = {
         "C": 1,
         "C#" : 2,
