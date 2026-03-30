@@ -1,3 +1,12 @@
+C--D--E--F--G--A--B--Ch--Dh--Eh--Fh--Gh--Ah--Bh--Chh---------
+C--D--E--F--G--A--B--Ch--Dh--Eh--Fh--Gh--Ah--Bh--Chh--
+C---Ch---
+C---
+C---C
+C---
+CDEFGABC
+C
+C
 EEB-A#-G-F#-E---
 EEB-A#-G-F#-E---
 EEB-A#-G-F#-E---
@@ -9,12 +18,3 @@ EEF#EB-A---
 EEB-A---
 EEA-G#--
 EEF#-E-B-A---
-EEF#-E-A-G#---
-EEF#-E-A-G#---
-EEF#-E-A-G#---
-EEF#-E-A-G#---
-EEF#-E-A-G#---
-EEF#-E-A-G---
-EEF#-E-A#-G---
-EEF#-E-A#-G---
-EEF#-E-A#-G---

@@ -42,12 +42,12 @@ def main():
         tones= []
 
         for note in music:  
-            tones.append(freq_duration_generator(note[0], note[1], 90))
+            tones.append(freq_duration_generator(note[0], note[1], note[2], 90))
 
 
         list_of_waveforms = []
         for i in range(0, len(tones)):
-            freq, duration = tones[i][0], tones[i][1]
+            freq, duration  = tones[i][0], tones[i][1]
             list_of_waveforms.append(waveform_generator(freq, duration, fs))
 
 

@@ -7,7 +7,7 @@ def waveform_generator(freq, duration, sample_rate):
     waveform = 0.5 * np.sin(2. *np.pi * freq*t)
     return waveform  
 
-def freq_duration_generator(note, length, bpm):
+def freq_duration_generator(note, octave, length, bpm):
     dict= {
         "C": 1,
         "C#" : 2,
@@ -25,7 +25,7 @@ def freq_duration_generator(note, length, bpm):
     } 
 
     try:
-        freq = middle_C_freq*((1.059463)**(dict[note] - 1))
+        freq = (2**(octave))*middle_C_freq*((1.059463)**(dict[note] - 1))
     except Exception as e: 
         print("error: not a valid note")
 
