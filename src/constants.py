@@ -4,6 +4,21 @@ class PlayType(Enum):
     CLI = "cli_string"
     FILE = "textfile"
 
+invalid_argument_text = """
+
+
+Invalid argument.
+To play a melody, please enter the name of a single melody file or a single melody string.
+For example: 
+"uv run src/main.py happy_birthday.txt"
+OR
+uv run src/main.py EEF#-E-A-G#---
+          
+To update a melody file, please enter your command followed by the file.
+For example: 
+"uv run src/main.py confirm happy_birthday.txt"
+
+"""
 
 notes_dict = {
         "C": 1,
