@@ -1,5 +1,6 @@
 import numpy 
 from constants import *
+from note import Note
 
 def string_to_notes_list(music_text): 
     music_text.strip()
@@ -37,7 +38,8 @@ def string_to_notes_list(music_text):
                 length = j*0.25
                 i += j+1
 
-                notes_list.append((music_text[index_of_note:index_of_note +2], octave, length))
+                note = Note(music_text[index_of_note: index_of_note +2], octave, length)
+                notes_list.append(note)
                 
                
 
@@ -65,7 +67,9 @@ def string_to_notes_list(music_text):
         
                 length = j*0.25
                 i += j
-                notes_list.append((music_text[index_of_note], octave, length))
+
+                note = Note(music_text[index_of_note], octave, length)
+                notes_list.append(note)
                 
                 
               

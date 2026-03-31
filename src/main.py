@@ -7,6 +7,8 @@ from file_to_string import file_to_string
 from generator import waveform_generator, freq_duration_generator
 from file_edit import file_edit
 from record_melody_attempt import record_melody_attempt
+from note import Note
+
 
 import os
 
@@ -42,12 +44,12 @@ def main():
         tones= []
 
         for note in music:  
-            tones.append(freq_duration_generator(note[0], note[1], note[2], 90))
+            tones.append(freq_duration_generator(note.pitch, note.octave, note.length, 90))
 
 
         list_of_waveforms = []
         for i in range(0, len(tones)):
-            freq, duration  = tones[i][0], tones[i][1]
+            freq, duration  = tones[i]
             list_of_waveforms.append(waveform_generator(freq, duration, fs))
 
 
