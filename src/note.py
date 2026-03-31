@@ -1,4 +1,5 @@
-from constants import notes_dict, number_to_notes_dict 
+from constants import notes_dict, number_to_notes_dict, fs 
+from generator import freq_duration_generator, waveform_generator
 
 class Note: 
 
@@ -27,6 +28,11 @@ class Note:
         
         notation_string += "-"*int((self.length/(0.25)) - 1.0)
         return notation_string
+    
+    def generate_final_waveform(self, bpm):
+        freq, duration = freq_duration_generator(self.pitch, self.octave, self.length, bpm)
+        waveform = waveform_generator(freq, duration, fs)
+        return waveform
 
     def __repr__(self):
         return f"pitch = {self.pitch}, octave = {self.octave}, length = {self.length})"

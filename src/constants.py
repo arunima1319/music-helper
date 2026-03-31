@@ -7,6 +7,8 @@ class PlayType(Enum):
 
 twelfth_root_of_two = 1.059463
 
+fs = 44100
+
 invalid_argument_text = """
 
 

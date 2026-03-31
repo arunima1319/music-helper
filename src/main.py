@@ -15,8 +15,9 @@ import os
 def main():
 
     try: 
-        fs = 44100
+        
         sd.default.samplerate = fs
+
 
         if len(sys.argv) == 2:   #just a melody is being played or bpm is being set
             
@@ -67,20 +68,15 @@ def main():
 
         with open ("bpm.txt", "r") as f:
             bpm = int(f.read())
-        music = string_to_notes_list(music_string)
-        tones= []
 
-        for note in music:  
-            tones.append(freq_duration_generator(note.pitch, note.octave, note.length, bpm))
-
-
-        list_of_waveforms = []
-        for i in range(0, len(tones)):
-            freq, duration  = tones[i]
-            list_of_waveforms.append(waveform_generator(freq, duration, fs))
+        notes = string_to_notes_list(music_string)
+        
+        waveform_list = []
+        for note in notes:  
+            waveform_list.append(note.generate_final_waveform(bpm))
 
 
-        for waveform in list_of_waveforms:
+        for waveform in waveform_list:
             sd.play(waveform)
             sd.wait()
 
