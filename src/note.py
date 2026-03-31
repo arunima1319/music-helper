@@ -12,7 +12,6 @@ class Note:
         pos_in_octave = notes_dict[self.pitch] 
         new_octave = self.octave + (pos_in_octave + semitones)//12 
         new_pitch_number = (pos_in_octave + semitones)%12
-        print(new_pitch_number)
         new_pitch = number_to_notes_dict[new_pitch_number] 
         
 
