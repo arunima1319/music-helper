@@ -3,9 +3,9 @@ from transpose import transpose
 
 def file_edit(command, file):
 
+   
+   
     file_path = os.path.join("melodies", file)
-
-    
     
     match(command):
         case("confirm"):
@@ -43,6 +43,7 @@ def file_edit(command, file):
             new_filename = "sing" + "_" + file.split(".")[0] + ".txt"
             new_file_path = os.path.join("melodies", new_filename)
 
+        
             with open(new_file_path, "w") as f:
                 f.write(new_text)
                 
