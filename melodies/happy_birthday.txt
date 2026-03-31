@@ -1,3 +1,4 @@
 EEF#---E--A--G#-----
 EEF#---E--B--A-----
-EEEh---C#h---A-G#---F#-----DhDhC#h----A--B--A-----
+EEEh---C#h---A-G#---F#-----
+DhDhC#h----A--B--A-----

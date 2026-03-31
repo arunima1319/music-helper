@@ -22,3 +22,8 @@ class TestNote(unittest.TestCase):
         transposed_note = note.transpose(5)
         new_note = Note("D#", 1, 1.0)
         self.assertEqual(transposed_note.__repr__(), new_note.__repr__())
+
+    def test_note_to_nootation_string(self):
+        note = Note("D", 2, 1.25)
+        notation_string = "Dhh----"
+        self.assertEqual(note.note_to_notation_string(), notation_string)
