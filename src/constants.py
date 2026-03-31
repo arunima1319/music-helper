@@ -4,6 +4,9 @@ class PlayType(Enum):
     CLI = "cli_string"
     FILE = "textfile"
 
+
+twelfth_root_of_two = 1.059463
+
 invalid_argument_text = """
 
 

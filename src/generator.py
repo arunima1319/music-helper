@@ -25,7 +25,7 @@ def freq_duration_generator(note, octave, length, bpm):
     } 
 
     try:
-        freq = (2**(octave))*middle_C_freq*((1.059463)**(dict[note] - 1))
+        freq = (2**(octave))*middle_C_freq*((twelfth_root_of_two)**(dict[note] - 1))
     except Exception as e: 
         print("error: not a valid note")
 
