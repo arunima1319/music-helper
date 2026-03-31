@@ -17,11 +17,21 @@ def main():
     try: 
         fs = 44100
         sd.default.samplerate = fs
+        
 
         if len(sys.argv) == 2:   #just a melody is being played
-            if sys.argv[1][-4:] == ".txt":
+            if sys.argv[1][-4:] == ".txt" or sys.argv[1] == "f":
                 melody_source = PlayType.FILE
-                music_string = file_to_string(sys.argv[1])
+
+                if sys.argv[1][-4:] == ".txt":
+                    with open ("latest_file_used.txt", "w") as f:
+                        f.write(sys.argv[1])
+
+                with open("latest_file_used.txt", "r") as f:
+                    file = f.read()
+                
+                music_string = file_to_string(file)
+                
     
             else:
                 melody_source = PlayType.CLI
@@ -31,8 +41,16 @@ def main():
 
             print(melody_source)
             
-        elif len(sys.argv) == 3: 
-            file_edit(sys.argv[1], sys.argv[2])
+        elif len(sys.argv) == 3:
+            if sys.argv[2][-4:] ==".txt":
+                with open("latest_file_used.txt", "w") as f:
+                    f.write(sys.argv[2])
+            with open("latest_file_used.txt", "r") as f:
+                file = f.read()
+            
+            file_edit(sys.argv[1], file)
+            
+
             return;
 
 

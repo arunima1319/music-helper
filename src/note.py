@@ -19,6 +19,16 @@ class Note:
         new_note = Note(new_pitch, new_octave, self.length)
         return new_note
 
+    def note_to_notation_string(self):
+        notation_string = self.pitch
+        if self.octave < 0:
+            notation_string +=(self.octave*(-1))*"l"
+        if self.octave > 0:
+            notation_string +=(self.octave)*"h"
+        
+        notation_string += "-"*int((self.length/(0.25)) - 1.0)
+        return notation_string
+
     def __repr__(self):
         return f"pitch = {self.pitch}, octave = {self.octave}, length = {self.length})"
     
