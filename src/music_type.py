@@ -6,4 +6,4 @@ def music_type(music_string):
     else:
         return MusicType.MELODY
     
-    
+

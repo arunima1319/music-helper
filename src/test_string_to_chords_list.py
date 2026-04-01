@@ -28,3 +28,16 @@ class TestStringToChordsList(unittest.TestCase):
         check = "(D#0, F#0, A0, 1.0) + (B0, D#1, F#1, 0.25) + "
         self.assertEqual(output, check)
         
+
+    def test_string_to_chords_list_octave(self):
+
+        string = "(CEG)-------(DFA)-------(GlBlD)-------"
+        chords = string_to_chords_list(string)
+
+        output = ""
+        for chord in chords:
+            output += chord.__repr__() + ' + '
+        
+        check = "(C0, E0, G0, 2.0) + (D0, F0, A0, 2.0) + (G-1, B-1, D0, 2.0) + "
+
+        self.assertEqual(output, check)

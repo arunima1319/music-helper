@@ -1,22 +1,43 @@
 import os
 from transpose import transpose 
 from constants import MusicType
+from music_type import music_type 
 
-def confirm_file(file_path):
+def confirm_file(file_path, music_type_of_file):
     with open ("record.txt", "r") as f:
         record = f.read()
     lines = record.split("\n")
-    new_line = lines[0]
+    latest_entry = lines[0].strip()
 
-    with open(file_path, "r") as f: 
-        original_contents = f.read()
-    original_lines = [line for line in original_contents.split("\n") if line]
-    original_lines.append(new_line)
-    
-    new_content = ("\n").join(original_lines)
+    if music_type(latest_entry) != music_type_of_file:
+        raise Exception("You cannot add chords to a melody file or vice versa.")
 
-    with open(file_path, "w") as f:
-        f.write(new_content)
+    print("1 - alright till here")
+    if not os.path.exists(file_path):
+        try:
+            dir_name = "/".join(file_path.split("/")[:-1])
+            os.makedirs(dir_name)
+            print(f"This is your first {music_type_of_file.value} file! You should see a new {dir_name} folder in your music helper.")
+        except:
+            print("Thanks for adding a new Chord file!")
+
+        with open(file_path, "w") as f:
+            f.write(latest_entry)
+
+
+        
+
+    else:
+        with open(file_path, "r") as f: 
+            original_contents = f.read()
+        original_lines = [line for line in original_contents.split("\n") if line]
+        original_lines.append(latest_entry)
+        
+        new_content = ("\n").join(original_lines)
+        with open(file_path, "w") as f:
+            f.write(new_content)
+
+        
 
 
 
@@ -46,11 +67,18 @@ def create_singing_practice_file(file_path, filename):
     new_contents = ("\n").join(new_melody_lines)
 
     new_filename = "sing" + "_" + filename.split(".")[0] + ".melody"
-    new_file_path = os.path.join("melodies", new_filename)
+    new_file_path = os.path.join("melodies", "sing", new_filename)
 
         
+    try:
+        os.makedirs("melodies/sing")
+        print("You just created your first singing practice file! You should see a new 'sing' folder within 'melodies' ") 
+    except Exception:
+        print("Thanks for adding a new singing practice file!")
+
     with open(new_file_path, "w") as f:
         f.write(new_contents)
+    
 
 def transpose_file(command, file_path, filename):
     semitones = int(command[9:])
@@ -72,16 +100,16 @@ def transpose_file(command, file_path, filename):
 def file_edit(command, file):      #We have ensured its a valid melody or chord file
 
     if file.split(".")[1] == "chord":
-        music_type = MusicType.CHORD
+        music_type_of_file = MusicType.CHORD
+        file_path = os.path.join("chords", file) 
+
+
     if file.split(".")[1] == "melody":
-        music_type = MusicType.MELODY
+        music_type_of_file = MusicType.MELODY
+        file_path = os.path.join("melodies", file)
 
-
-
-    file_path = os.path.join("melodies", file) if music_type == MusicType.MELODY else os.path.join("chords", file)
-    
     if command == "confirm": 
-        confirm_file(file_path)
+        confirm_file(file_path, music_type_of_file)
             
 
     elif command == "undo":
@@ -93,6 +121,8 @@ def file_edit(command, file):      #We have ensured its a valid melody or chord 
             
 
     elif command == "singing":
+        if music_type_of_file == MusicType.CHORD:
+            raise Exception("you cannot create scale exercises from a chord progression")
         create_singing_practice_file(file_path, file)    
 
     elif command[0:9] == "transpose": 

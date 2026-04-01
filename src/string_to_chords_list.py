@@ -60,7 +60,7 @@ def string_to_chords_list(chord_string):
             j+=1
             units = 1
             while len(chord_string) > j and chord_string[j] != "(":
-                if chord_string[i+j] != "-":
+                if chord_string[j] != "-":
                     raise Exception("Invalid chord string. Ensure all notes are within parentheses.")
                 units += 1
                 j+=1
