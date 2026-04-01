@@ -8,7 +8,7 @@ If user is happy with their try and want to note it down in the final file,
 They can "confirm" the latest entry to that file
 """
 
-def record_melody_attempt(music_tried): 
+def record_music_attempt(music_tried): 
 
 
     if os.path.exists("record.txt"):

@@ -3,12 +3,14 @@ import sounddevice as sd
 import sys
 from constants import *
 from string_to_notes_list import string_to_notes_list
+from string_to_chords_list import string_to_chords_list 
 from file_to_string import file_to_string
 from generator import waveform_generator, freq_duration_generator
 from file_edit import file_edit
-from record_melody_attempt import record_melody_attempt
+from record_music_attempt import record_music_attempt
 from note import Note
 from parse_inputs import parse_inputs
+from music_type import music_type 
 from read_update_files import * 
  
 
@@ -30,20 +32,20 @@ def main():
 
             if music_source == PlayType.CLI:
                 music_string = sys.argv[1]
-                notes = string_to_notes_list(music_string)
+                track = string_to_notes_list(music_string) if music_type(music_string) == MusicType.MELODY else string_to_chords_list(music_string)
 
-                if notes:       #ensuring that the melody_string was valid, and string_to_notes returned a list of notes
-                    record_melody_attempt(music_string)
+                if track:       
+                    record_music_attempt(music_string)
 
             elif music_source == PlayType.FILE:
                 file = read_latest_file_used()
                 music_string = file_to_string(file)
-                notes = string_to_notes_list(music_string)
+                track = string_to_notes_list(music_string) if music_type(music_string) == MusicType.MELODY else string_to_chords_list(music_string) 
             
 
             
-            for note in notes:
-                note.play(bpm)  
+            for music in track:
+                music.play(bpm)  
 
 
             

@@ -1,7 +1,6 @@
 
 from file_to_string import file_to_string
 from constants import *
-from record_melody_attempt import record_melody_attempt
 from file_edit import file_edit
 from read_update_files import *
 
@@ -24,24 +23,24 @@ def parse_inputs(input_array):
             if "." in arg:
                 ext = arg.split(".")[1]
                 full_file_inputted = True
-                melody_source = PlayType.FILE 
+                music_source = PlayType.FILE 
 
             
             if full_file_inputted:
                 if ext == "melody" or ext == "chord":
                     update_latest_file_used(arg)
                 else: 
-                    print(melody_source)
+                    print(music_source)
                     raise Exception ("This is not a melody or chord file")                
                                 
             elif arg == "f":
-                melody_source = PlayType.FILE
+                music_source = PlayType.FILE
 
             else:
-                melody_source = PlayType.CLI
+                music_source = PlayType.CLI
     
-            print(melody_source)
-            return melody_source
+            print(music_source)
+            return music_source
             
         
         elif len(input_array) == 3:
