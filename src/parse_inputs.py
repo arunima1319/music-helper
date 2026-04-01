@@ -32,13 +32,15 @@ def parse_inputs(input_array):
             
             if arg[0:6] == "setbpm":
                 update_bpm(arg)
-                return
+                return None, None
                 
+            if "." in arg:
+                ext = arg.split(".")[1]
 
-            if arg[-4:] == ".txt" or arg == "f":
+            if arg == "f" or ext == "melody" or ext == "chord":
                 melody_source = PlayType.FILE
 
-                if arg[-4:] == ".txt":
+                if arg[-4:] == ".melody" or arg[-4:] == ".chord":
                     update_latest_file_used(arg)
                     
                 file = read_latest_file_used()
@@ -50,27 +52,34 @@ def parse_inputs(input_array):
             else:
                 melody_source = PlayType.CLI
                 melody_string = arg
-                record_melody_attempt(arg)
+                
                 
 
             print(melody_source)
-            return melody_string 
+            return melody_string, melody_source
             
         
         elif len(input_array) == 3:
 
             command, file = input_array[1], input_array[2]
 
-            if file[-4:] ==".txt":
-                update_latest_file_used(file)
+
+            if "." in file:
+                ext = file.split(".")[1]
+                if ext =="melody" or ext == "chord":
+                    update_latest_file_used(file)
+            elif file == "f":
+                pass
+            else:
+                print(invalid_argument_text )
             
             file = read_latest_file_used()
             
             file_edit(command, file)
 
-            return
+            return None, None
 
         else:
             print(invalid_argument_text)
-            return
+            return None, None
     

@@ -19,13 +19,19 @@ def main():
         
         sd.default.samplerate = fs
 
-        melody_string = parse_inputs(sys.argv)
+        melody_string, melody_source = parse_inputs(sys.argv)
 
         if melody_string:       #This code block executes only if parse_inputs returns a melody string
             
+            
+
             bpm = read_bpm()
 
             notes = string_to_notes_list(melody_string)
+
+            if melody_source == PlayType.CLI:
+                if notes:       #ensuring that the melody_string was valid, and string_to_notes returned a list of notes
+                    record_melody_attempt(melody_string)
             
             waveform_list = []
             for note in notes:  

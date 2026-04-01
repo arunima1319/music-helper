@@ -10,13 +10,14 @@ They can "confirm" the latest entry to that file
 
 def record_melody_attempt(music_tried): 
 
+
     if os.path.exists("record.txt"):
         with open ("record.txt", "r") as f:
             text = f.read()
             lines = text.split()
             if len(lines) > 19:
                 text = ("\n").join(lines[0:19])
-            
+                
     else: 
         text = ""
 

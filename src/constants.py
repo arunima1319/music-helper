@@ -4,6 +4,9 @@ class PlayType(Enum):
     CLI = "cli_string"
     FILE = "textfile"
 
+class MusicType(Enum):
+    MELODY = "melody"
+    CHORD = "chord"
 
 twelfth_root_of_two = 1.059463
 
