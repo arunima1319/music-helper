@@ -1,5 +1,5 @@
 import os
-from transpose import transpose 
+from transpose import transpose_chord, transpose_melody 
 from constants import MusicType
 from music_type import music_type 
 
@@ -61,7 +61,7 @@ def create_singing_practice_file(file_path, filename):
     new_melody_lines = []
     for i in range (-12, 12, 1):
         for melody_line in melody_lines: 
-            new_melody_line = transpose(melody_line, i)
+            new_melody_line = transpose_melody(melody_line, i)
             new_melody_lines.append(new_melody_line)
 
     new_contents = ("\n").join(new_melody_lines)
@@ -80,20 +80,24 @@ def create_singing_practice_file(file_path, filename):
         f.write(new_contents)
     
 
-def transpose_file(command, file_path, filename):
+def transpose_file(command, file_path, filename, music_type_of_file):
     semitones = int(command[9:])
     with open (file_path, "r") as f: 
             text = f.read()
     lines = text.split("\n")
     new_lines = []
     for line in lines:
-        new_line = transpose(line, semitones)
-        new_lines.append(new_line)
-    new_text = "\n".join(new_lines)
-    new_file_name = filename.split(".")[0] + "_" + command[9:] + ".melody"
-    new_file_path = os.path.join("melodies", new_file_name)
+        if line:
+            new_line = transpose_melody(line, semitones) if music_type_of_file == MusicType.MELODY else transpose_chord(line, semitones)
+            new_lines.append(new_line)
+
+    new_content = "\n".join(new_lines)
+
+    new_file_name = filename.split(".")[0] + "_" + command[9:] + "." + f"{music_type_of_file.value}"
+    dir_name = "/".join(file_path.split("/")[:-1])
+    new_file_path = os.path.join(dir_name, new_file_name)
     with open(new_file_path, "w") as f:
-        f.write(new_text)
+        f.write(new_content)
 
 
 
@@ -126,7 +130,7 @@ def file_edit(command, file):      #We have ensured its a valid melody or chord 
         create_singing_practice_file(file_path, file)    
 
     elif command[0:9] == "transpose": 
-        transpose_file(command, file_path, file)
+        transpose_file(command, file_path, file, music_type_of_file)
 
     else:
         raise Exception("invalid command")

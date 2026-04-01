@@ -10,3 +10,8 @@ class TestChord(unittest.TestCase):
         self.assertEqual(chord.__repr__(), output)
 
 
+    def test_note_to_notation_string(self):
+        chord = Chord(Note("C", 1), Note("D#", 1), Note("G", 1))
+        chord.length = 0.5
+        notation_string = "(ChD#hGh)-"
+        self.assertEqual(chord.chord_to_notation_string(), notation_string)

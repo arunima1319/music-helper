@@ -1,7 +1,7 @@
 import os
 
 def file_to_string(file):
-    filepath = os.path.join("melodies", file) 
+    filepath = file
 
     if os.path.exists(filepath): 
         with open (filepath) as f: 

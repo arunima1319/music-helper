@@ -39,9 +39,17 @@ def main():
 
             elif music_source == PlayType.FILE:
                 file = read_latest_file_used()
-                music_string = file_to_string(file)
-                track = string_to_notes_list(music_string) if music_type(music_string) == MusicType.MELODY else string_to_chords_list(music_string) 
-            
+
+                if music_source == MusicType.MELODY:
+                    file_path = f"melodies/{file}"
+                    music_string = file_to_string(file_path)
+                    track = string_to_notes_list(music_string)
+
+                else:
+                    file_path = f"chords/{file}"
+                    music_string = file_to_string(file_path)
+                    track = string_to_chords_list(music_string)
+                            
 
             
             for music in track:

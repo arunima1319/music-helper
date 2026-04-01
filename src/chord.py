@@ -42,7 +42,21 @@ class Chord():
 
 
 
-
+    def chord_to_notation_string(self):
+        notation_string = "("
+        list_of_notes = [self.note1, self.note2, self.note3]
+        for note in list_of_notes: 
+            notation_string += note.pitch
+            if note.octave < 0:
+                notation_string +=(note.octave*(-1))*"l"
+            elif note.octave > 0:
+                notation_string +=(note.octave)*"h"
+            else:
+                pass
+        notation_string += ")"
+        
+        notation_string += "-"*int((self.length/(0.25)) - 1.0)
+        return notation_string
 
     def transpose(self, semitones):
 
@@ -51,6 +65,7 @@ class Chord():
         new_note3 = self.note3.transpose(semitones)
 
         new_chord = Chord(new_note1, new_note2, new_note3)
+        new_chord.length= self.length
 
         return new_chord
     
