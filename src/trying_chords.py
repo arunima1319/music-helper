@@ -4,7 +4,13 @@ import sounddevice as sd
 from chord import Chord
 from note import Note
 from constants import *
+from string_to_chords_list import string_to_chords_list
 
+
+chord_string = "(D#F#A)---(BD#hF#h)"
+chords = string_to_chords_list(chord_string)
+
+"""
 default_chord = Chord()
 
 
@@ -16,3 +22,4 @@ default_chord.play(bpm)
 transposed  = chord.transpose(-4)
 print(transposed)
 
+"""

@@ -4,9 +4,9 @@ from constants import *
 import sounddevice as sd 
 
 
-C = Note("C", 0, 1.0)
-E = Note("E", 0, 1.0)
-G = Note("G", 0, 1.0)
+C = Note("C", 0, 0.25)
+E = Note("E", 0, 0.25)
+G = Note("G", 0, 0.25)
 
 class Chord():
     def __init__(self, note1 = C, note2 = E, note3 = G):
@@ -56,4 +56,4 @@ class Chord():
     
 
     def __repr__(self): 
-        return f"{self.note1.pitch}{self.note1.octave}, {self.note2.pitch}{self.note2.octave}, {self.note3.pitch}{self.note3.octave}, length = {self.length}"
+        return f"({self.note1.pitch}{self.note1.octave}, {self.note2.pitch}{self.note2.octave}, {self.note3.pitch}{self.note3.octave}, {self.length})"

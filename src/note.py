@@ -4,7 +4,7 @@ import sounddevice as sd
 
 class Note: 
 
-    def __init__(self, pitch, octave, length):
+    def __init__(self, pitch = "C", octave = 0, length = 1.0):
         self.pitch = pitch
         self.octave = octave
         self.length = length
