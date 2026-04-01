@@ -3,25 +3,11 @@ from file_to_string import file_to_string
 from constants import *
 from record_melody_attempt import record_melody_attempt
 from file_edit import file_edit
-
-def update_latest_file_used(arg):
-    with open ("latest_file_used.txt", "w") as f:
-        f.write(arg)
+from read_update_files import *
 
 
-def read_latest_file_used():
-    with open("latest_file_used.txt", "r") as f:
-        file = f.read()
-    return file 
-
-def update_bpm(arg): 
-    bpm = arg[6:]
-    with open ("bpm.txt", "w") as f:
-        f.write(bpm)
-
-def read_bpm(): 
-    with open ("bpm.txt", "r") as f:
-        return (int(f.read()))
+#A module to parse inputs and execute the required functions
+#Ensures smoother user experience
 
 def parse_inputs(input_array):
         
@@ -32,31 +18,30 @@ def parse_inputs(input_array):
             
             if arg[0:6] == "setbpm":
                 update_bpm(arg)
-                return None, None
+                return None
                 
+            full_file_inputted = False
             if "." in arg:
                 ext = arg.split(".")[1]
+                full_file_inputted = True
+                melody_source = PlayType.FILE 
 
-            if arg == "f" or ext == "melody" or ext == "chord":
+            
+            if full_file_inputted:
+                if ext == "melody" or ext == "chord":
+                    update_latest_file_used(arg)
+                else: 
+                    print(melody_source)
+                    raise Exception ("This is not a melody or chord file")                
+                                
+            elif arg == "f":
                 melody_source = PlayType.FILE
 
-                if arg[-4:] == ".melody" or arg[-4:] == ".chord":
-                    update_latest_file_used(arg)
-                    
-                file = read_latest_file_used()
-                
-                
-                melody_string = file_to_string(file)
-                
-    
             else:
                 melody_source = PlayType.CLI
-                melody_string = arg
-                
-                
-
+    
             print(melody_source)
-            return melody_string, melody_source
+            return melody_source
             
         
         elif len(input_array) == 3:
@@ -68,6 +53,9 @@ def parse_inputs(input_array):
                 ext = file.split(".")[1]
                 if ext =="melody" or ext == "chord":
                     update_latest_file_used(file)
+                else: 
+                    raise Exception ("This is not a melody or chord file")
+            
             elif file == "f":
                 pass
             else:
@@ -77,9 +65,9 @@ def parse_inputs(input_array):
             
             file_edit(command, file)
 
-            return None, None
+            return None
 
         else:
             print(invalid_argument_text)
-            return None, None
+            return None
     
