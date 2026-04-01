@@ -10,11 +10,19 @@ def file_edit(command, file):
     match(command):
         case("confirm"):
             with open ("record.txt", "r") as f:
-                entry = f.read()
-                lines = entry.split("\n")
-            to_enter = lines[0] + "\n"
-            with open(file_path, "a") as f:
-                f.write(to_enter)
+                record = f.read()
+                lines = record.split("\n")
+            new_line = lines[0]
+            print(new_line)
+            with open(file_path, "r") as f: 
+                original_contents = f.read()
+            original_lines = [line for line in original_contents.split("\n") if line]
+            original_lines.append(new_line)
+            print(original_lines)
+            new_content = ("\n").join(original_lines)
+
+            with open(file_path, "w") as f:
+                f.write(new_content)
 
         case("undo"):
             with open(file_path, "r") as f:
