@@ -74,7 +74,7 @@ def string_to_notes_list(music_text):
                 
               
         else: 
-            raise Exception ("Invalid music text.\n")
+            raise Exception ("Invalid melody text.\n")
         
 
             

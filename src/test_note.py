@@ -27,3 +27,5 @@ class TestNote(unittest.TestCase):
         note = Note("D", 2, 1.25)
         notation_string = "Dhh----"
         self.assertEqual(note.note_to_notation_string(), notation_string)
+
+        
