@@ -1,5 +1,6 @@
 from constants import notes_dict, number_to_notes_dict, fs 
 from generator import freq_duration_generator, waveform_generator
+import sounddevice as sd
 
 class Note: 
 
@@ -33,6 +34,10 @@ class Note:
         freq, duration = freq_duration_generator(self.pitch, self.octave, self.length, bpm)
         waveform = waveform_generator(freq, duration, fs)
         return waveform
+    
+    def play(self, bpm):
+        sd.play(self.generate_final_waveform(bpm))
+        sd.wait()
 
     def __repr__(self):
         return f"pitch = {self.pitch}, octave = {self.octave}, length = {self.length})"

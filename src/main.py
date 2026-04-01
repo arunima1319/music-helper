@@ -41,14 +41,12 @@ def main():
                 notes = string_to_notes_list(music_string)
             
 
-            waveform_list = []
-            for note in notes:  
-                waveform_list.append(note.generate_final_waveform(bpm))
+            
+            for note in notes:
+                note.play(bpm)  
 
 
-            for waveform in waveform_list:
-                sd.play(waveform)
-                sd.wait()
+            
 
     except Exception as e:
         print(e)
