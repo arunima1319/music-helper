@@ -5,15 +5,14 @@ from chord import Chord
 from note import Note
 from constants import *
 
+default_chord = Chord()
+
 
 chord = Chord(Note("C", 1, 3.0), Note("E", 1, 2.0), Note("G", 1, 4.0))
 bpm = 90
 
+default_chord.play(bpm)
+
 transposed  = chord.transpose(-4)
 print(transposed)
 
-sd.play(chord.generate_final_waveform(bpm))
-sd.wait()
-
-sd.play(transposed.generate_final_waveform(bpm))
-sd.wait()

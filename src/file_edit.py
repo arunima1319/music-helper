@@ -1,6 +1,6 @@
 import os
 from transpose import transpose 
-
+from constants import MusicType
 
 def confirm_file(file_path):
     with open ("record.txt", "r") as f:
@@ -69,8 +69,16 @@ def transpose_file(command, file_path, filename):
 
 
 
-def file_edit(command, file):
-    file_path = os.path.join("melodies", file)
+def file_edit(command, file):      #We have ensured its a valid melody or chord file
+
+    if file.split(".")[1] == "chord":
+        music_type = MusicType.CHORD
+    if file.split(".")[1] == "melody":
+        music_type = MusicType.MELODY
+
+
+
+    file_path = os.path.join("melodies", file) if music_type == MusicType.MELODY else os.path.join("chords", file)
     
     if command == "confirm": 
         confirm_file(file_path)
