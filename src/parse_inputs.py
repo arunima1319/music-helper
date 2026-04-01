@@ -52,6 +52,8 @@ def parse_inputs(input_array):
             if "." in file:
                 ext = file.split(".")[1]
                 if ext =="melody" or ext == "chord":
+                    if len(file.split(".")) > 2:
+                        raise Exception("This is an invalid extension.")
                     update_latest_file_used(file)
                 else: 
                     raise Exception ("This is not a melody or chord file")
