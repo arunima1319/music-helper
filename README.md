@@ -25,6 +25,16 @@ cd musichelper
 ```
 uv sync
 ```
+Either activate the virtual environment:
+``` 
+source .venv/bin/activate
+```
+and then run the program using
+```python3 src/main.py``` (with the relevant inputs)
+
+OR run it using 
+
+```uv run python3 src/main.py``` (with the relevant inputs)
 
 
 ## Usage 
@@ -60,13 +70,19 @@ This should play the melody.
 
 For chords, you may have to enclose the string in quotes to avoid misinterpretations of the `(` character. 
 
-Example: ```music (CEG)------(DFA)------```
+Example: ```music "(CEG)------(DFA)------"```
 
-You can also play music from files. Melody files have a .melody extension, and harmony(chord) files have a .chord extension. Melody files are stored in musichelper/melodies and chord files are in musichelper/chords. You do not need to worry about the directory structure, just enter the name of the file you want to play. 
+You can also play music from files. Melody files have a .melody extension, and harmony(chord) files have a .chord extension. 
+
+Melody files are stored in musichelper/melodies and chord files are in musichelper/chords. 
+
+You do not need to worry about the directory structure, just enter the name of the file you want to play. 
 
 Examples: ```music april.chord``` or 
 
 ```music amazing_grace.melody```
+
+The github repo should have some pre-existing melody and chord files, such as the ones in the examples above - try playing them! 
 
 If there are no melody/chord files, you can easily create one by using the command ```confirm``` which will create a new file (or update an existing one) with the most recent music string you have played in the shell. Read more in the [Commands](Commands) section below
 
@@ -82,7 +98,9 @@ This can be useful to check how different chord progressions sound with a certai
 
 ### Commands 
 
-These are some commands to update or create file. The new or updated file will play automatically after these commands are run.
+These are some commands to update or create file. The new or updated file will play automatically after these commands are run. 
+
+Note: You are free to manually edit the files if required. However, it will only play if the text it contains is a valid chord or melody string.
 
 1. confirm
 
