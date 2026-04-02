@@ -5,15 +5,14 @@ Music Helper is a tool to quickly play, store, and transpose music (chords and m
 
 ## Installation 
 
-### 1. Prerequisites 
+### Prerequisites 
 
 This project requires:
 - Python3   [install](https://www.python.org/downloads/)
 - Numpy [install](https://numpy.org/install/)
 - Sounddevice [install](https://pypi.org/project/sounddevice/)
 
-To run this project using uv (recommended) follow these steps:
-
+### To run this project using uv (recommended):
 1. [Install uv](https://docs.astral.sh/uv/getting-started/installation/)
 
 2. Clone the github repository and navigate to the root of the project 
