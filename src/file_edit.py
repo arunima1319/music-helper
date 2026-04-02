@@ -2,6 +2,7 @@ import os
 from transpose import transpose_chord, transpose_melody 
 from constants import MusicType
 from music_type import music_type 
+from read_update_files import update_latest_file_used
 
 def confirm_file(file_path, music_type_of_file):
     with open ("record.txt", "r") as f:
@@ -67,6 +68,7 @@ def create_singing_practice_file(file_path, filename):
     new_contents = ("\n").join(new_melody_lines)
 
     new_filename = "sing" + "_" + filename.split(".")[0] + ".melody"
+    update_latest_file_used(new_filename)
     new_file_path = os.path.join("melodies", new_filename)
 
 
@@ -75,6 +77,9 @@ def create_singing_practice_file(file_path, filename):
     
 
 def transpose_file(command, file_path, filename, music_type_of_file):
+
+    
+
     semitones = int(command[9:])
     with open (file_path, "r") as f: 
             text = f.read()
@@ -88,6 +93,8 @@ def transpose_file(command, file_path, filename, music_type_of_file):
     new_content = "\n".join(new_lines)
 
     new_file_name = filename.split(".")[0] + "_" + command[9:] + "." + f"{music_type_of_file.value}"
+    update_latest_file_used(new_file_name)
+    
     dir_name = "/".join(file_path.split("/")[:-1])
     new_file_path = os.path.join(dir_name, new_file_name)
     with open(new_file_path, "w") as f:

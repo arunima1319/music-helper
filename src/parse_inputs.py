@@ -66,13 +66,13 @@ def parse_inputs(input_array):
             elif file == "f":
                 pass
             else:
-                print(invalid_argument_text )
+                print(invalid_argument_text)
             
             file = read_latest_file_used()
             
             file_edit(command, file)
 
-            return None
+            return PlayType.FILE
 
         else:
             print(invalid_argument_text)
