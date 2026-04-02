@@ -1,6 +1,6 @@
 # Music Helper 
 
-Music Helper is a tool to quickly play, store, and transpose music (chords and melodies) from the terminal. Great for songwriters, singers, and musicians, especially when access to a musical instrument is limited!
+Music Helper is a tool to quickly play, store, and transpose music (chords and melodies) from the terminal. Great for musicians, songwriters, and singers, especially when access to a musical instrument is limited!
 
 
 ## Installation 
@@ -61,7 +61,7 @@ This should play the melody.
 
 For chords, you may have to enclose the string in quotes to avoid misinterpretations of the `(` character. 
 
-Exampel: ```music (CEG)------(DFA)------```
+Example: ```music (CEG)------(DFA)------```
 
 You can also play music from files. Melody files have a .melody extension, and harmony(chord) files have a .chord extension. Melody files are stored in musichelper/melodies and chord files are in musichelper/chords. You do not need to worry about the directory structure, just enter the name of the file you want to play. 
 
