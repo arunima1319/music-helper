@@ -13,7 +13,10 @@ def file_music_type(music_file):
         file_path = f"melodies/{music_file}"
         return MusicType.MELODY, file_path
 
-    if music_file.split(".")[1] == "chord":
+    elif music_file.split(".")[1] == "chord":
         file_path = f"chords/{music_file}"
         return MusicType.CHORD, file_path
+    
+    else:
+        return None, None
 

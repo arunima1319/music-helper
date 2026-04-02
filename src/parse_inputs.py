@@ -31,64 +31,54 @@ def check_file_validity(arg):
   
     return full_file_inputted
 
-
+#Takes the system arguments array and returns a list of sources that can be converted into playable strings
 def parse_inputs(input_array):
         
 
-        #Handles the special merge command
-        #if len(input_array) >= 2 and input_array[1] == "merge":
-
-
-
-        if len(input_array) == 2:   #just a single track is being played or bpm/repeat is being set
-            
-            arg = input_array[1]
-            
-            if arg[0:6] == "setbpm":
-                update_bpm(arg)
-                return None, None
-            
-            elif arg[0:6] == "repeat":
-                update_repeat(arg[6])
-                return None, None
-                
-            #checks if input resembles a valid file or refers to last used file
-            elif check_file_validity(arg) or arg == "f":
-                music_source = PlayType.FILE
-                music_type, path = file_music_type(read_latest_file_used())
-                playable = file_to_string(path)
-
-            else:
-                music_source = PlayType.CLI
-                playable = arg
-                record_music_attempt(playable)
-    
-            print(music_source)
-            return music_source, playable
-            
+    #Handles the special merge command
+    if len(input_array) >= 2 and input_array[1] == "merge":
+        sources = input_array[2:]
+        return sources
         
-        elif len(input_array) == 3:
 
-            command, file = input_array[1], input_array[2]
+    #File is being edited
+    elif len(input_array) == 3:
 
-            if check_file_validity(file):
-                pass
-            elif file == "f":
-                pass
-            else:
-                print(invalid_argument_text)
-            
-            file = read_latest_file_used()
-            
-            file_edit(command, file) #file_edit manages the paths on its own
+        command, file = input_array[1], input_array[2]
 
-            #will be a different file in case of singing and transpose commands
-            music_type, path = file_music_type(read_latest_file_used())
-            playable = file_to_string(path)
-
-            return PlayType.FILE, playable
-
+        if check_file_validity(file):
+            pass
+        elif file == "f":
+            pass
         else:
             print(invalid_argument_text)
-            return None, None
+            
+        file = read_latest_file_used()
+            
+        #file_edit manages the paths on its own
+        file_edit(command, file)
+
+        file = read_latest_file_used()
+
+        return [file]
+    
+    elif len(input_array) == 2:
+
+        arg = input_array[1]
+
+        if arg[0:6] == "setbpm":
+            update_bpm(arg)
+            return None
+            
+        elif arg[0:6] == "repeat":
+            update_repeat(arg[6])
+            return None
+        
+        else:
+            source = arg
+            return [source] 
+
+    else:
+        print(invalid_argument_text)
+        return None
     

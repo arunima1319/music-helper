@@ -3,6 +3,7 @@ from enum import Enum
 class PlayType(Enum):
     CLI = "cli_string"
     FILE = "textfile"
+    MERGE = "multiple sources"
 
 class MusicType(Enum):
     MELODY = "melody"

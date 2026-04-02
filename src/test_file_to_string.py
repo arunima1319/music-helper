@@ -5,7 +5,7 @@ class TestFileToString(unittest.TestCase):
 
     def test_file_to_string(self): 
 
-        file = "test_file.txt"
+        file = "melodies/test_file.melody"
         music_string = "C--------"
         self.assertEqual(file_to_string(file), music_string)
 
