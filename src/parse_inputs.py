@@ -18,6 +18,10 @@ def parse_inputs(input_array):
             if arg[0:6] == "setbpm":
                 update_bpm(arg)
                 return None
+            
+            if arg[0:6] == "repeat":
+                update_repeat(arg[6])
+                return None
                 
             full_file_inputted = False
             if "." in arg:

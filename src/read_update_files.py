@@ -16,3 +16,14 @@ def update_bpm(arg):
 def read_bpm(): 
     with open ("bpm.txt", "r") as f:
         return (int(f.read()))
+
+def read_repeat():
+    with open ("repeat.txt", "r") as f:
+        return f.read()
+    
+def update_repeat(char):
+    if char == "Y" or "No":
+        with open("repeat.txt", "w") as f:
+            f.write(char)
+    else: 
+        raise Exception("Use 'repeatY' or 'repeatN' ")

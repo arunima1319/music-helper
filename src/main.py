@@ -28,6 +28,7 @@ def main():
             
             
             bpm = read_bpm()
+            set_repeat = read_repeat()
 
 
             if music_source == PlayType.CLI:
@@ -51,9 +52,19 @@ def main():
                     track = string_to_chords_list(music_string)
                             
 
-            
-            for music in track:
-                music.play(bpm)  
+            if set_repeat == "Y":
+                i = 0
+                while i < len(track):
+                    track[i].play(bpm)
+                    if i == len(track) -1:
+                        i = 0
+                    else:
+                        i += 1
+                
+                
+            elif set_repeat == "N":
+                for music in track:
+                    music.play(bpm)  
 
 
             
