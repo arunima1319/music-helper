@@ -31,7 +31,7 @@ def check_file_validity(arg):
   
     return full_file_inputted
 
-#Takes the system arguments array and returns a list of sources that can be converted into playable strings
+#Takes the system arguments, updates files if required and returns a list of sources that can be converted into playable strings
 def parse_inputs(input_array):
         
 
