@@ -12,9 +12,29 @@ from note import Note
 from parse_inputs import parse_inputs
 from music_type import music_type 
 from read_update_files import * 
- 
+
 
 import os
+import threading
+import multiprocessing
+
+def playback(track, bpm, set_repeat):
+
+    if set_repeat == "Y":
+        i = 0
+        while i < len(track):
+            track[i].play(bpm)
+            if i == len(track) -1:
+                i = 0
+            else:
+                i += 1
+                    
+                    
+    elif set_repeat == "N":
+        for music in track:
+            music.play(bpm) 
+        print("Track completed, press Enter")         
+
 
 def main():
 
@@ -50,23 +70,34 @@ def main():
                     file_path = f"chords/{file}"
                     music_string = file_to_string(file_path)
                     track = string_to_chords_list(music_string)
-                            
 
-            if set_repeat == "Y":
-                i = 0
-                while i < len(track):
-                    track[i].play(bpm)
-                    if i == len(track) -1:
-                        i = 0
-                    else:
-                        i += 1
-                
-                
-            elif set_repeat == "N":
-                for music in track:
-                    music.play(bpm)  
+            #stop_flag = threading.Event()  
+            #stop_flag.clear()   #making sure it's set to False              
+            
+            p = multiprocessing.Process(target = playback, name = "Play Music", args = (track, bpm, set_repeat))
+            
+            p.start()
 
+            
+            user_input = input(
+                """
+Enjoying the music? 
+Enter 'stop' to interrupt and stop track. 
 
+"""
+            )
+
+            if user_input.strip().lower() in ['stop', 'q', 'exit', 'quit', 's', 'enough']:
+                print("Stopping music")
+                p.terminate()
+            elif "stop" in user_input:
+                p.terminate()
+            else:
+                p.join()
+        
+
+    except KeyboardInterrupt:
+        print(" Stopping music...")
             
 
     except Exception as e:
