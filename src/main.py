@@ -10,12 +10,11 @@ from file_edit import file_edit
 from record_music_attempt import record_music_attempt
 from note import Note
 from parse_inputs import parse_inputs
-from music_type import music_type 
+from music_type import music_type, file_music_type
 from read_update_files import * 
 
 
 import os
-import threading
 import multiprocessing
 
 def playback(track, bpm, set_repeat):
@@ -36,53 +35,47 @@ def playback(track, bpm, set_repeat):
         print("Track completed, press Enter")         
 
 
+def playable_string_to_track(playable_string):
+    if music_type(playable_string) == MusicType.MELODY:
+        track = string_to_notes_list(playable_string)
+    if music_type(playable_string) == MusicType.CHORD:
+        track = string_to_chords_list(playable_string)
+
+    return track
+
+
+
 def main():
 
     try: 
         
         sd.default.samplerate = fs
 
-        music_source = parse_inputs(sys.argv)
+        music_source, playable = parse_inputs(sys.argv)
 
-        if music_source:       #This code block executes only if parse_inputs returns a music source to play
+
+        #This code block executes only if parse_inputs returns a music source to play
+        if music_source:       
             
             
             bpm = read_bpm()
             set_repeat = read_repeat()
 
+            #track2 = string_to_chords_list("(CEG)---------(CEG)----------")
 
-            if music_source == PlayType.CLI:
-                music_string = sys.argv[1]
-                track = string_to_notes_list(music_string) if music_type(music_string) == MusicType.MELODY else string_to_chords_list(music_string)
+            track = playable_string_to_track(playable)
 
-                if track:       
-                    record_music_attempt(music_string)
 
-            elif music_source == PlayType.FILE:
-                file = read_latest_file_used()
-
-                if file.split(".")[1] == "melody": 
-                    file_path = f"melodies/{file}"
-                    music_string = file_to_string(file_path)
-                    track = string_to_notes_list(music_string)
-
-                elif file.split(".")[1] == "chord":
-                    file_path = f"chords/{file}"
-                    music_string = file_to_string(file_path)
-                    track = string_to_chords_list(music_string)
-
-            #stop_flag = threading.Event()  
-            #stop_flag.clear()   #making sure it's set to False              
-            
             p = multiprocessing.Process(target = playback, name = "Play Music", args = (track, bpm, set_repeat))
-            
+            #p2 = multiprocessing.Process(target = playback, name = "Counter Music", args = (track2, bpm, set_repeat))
             p.start()
+            #p2.start()
 
             
             user_input = input(
                 """
 Enjoying the music? 
-Enter 'stop' to interrupt and stop track. 
+Press 'q' to interrupt and stop track. 
 
 """
             )
@@ -90,10 +83,11 @@ Enter 'stop' to interrupt and stop track.
             if user_input.strip().lower() in ['stop', 'q', 'exit', 'quit', 's', 'enough']:
                 print("Stopping music")
                 p.terminate()
-            elif "stop" in user_input:
-                p.terminate()
+                #p2.terminate()
+    
             else:
                 p.join()
+                #p2.join()
         
 
     except KeyboardInterrupt:
