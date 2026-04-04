@@ -1,9 +1,8 @@
 import unittest
-from string_to_chords_list import string_to_chords_list 
+from string_to_chords_list import string_to_chords_list
 
 
-
-class TestStringToChordsList(unittest.TestCase): 
+class TestStringToChordsList(unittest.TestCase):
 
     def test_string_to_chords_list(self):
 
@@ -14,7 +13,6 @@ class TestStringToChordsList(unittest.TestCase):
 
         check = "(D#0, F#0, A0, 1.0) + "
         self.assertEqual(output, check)
-        
 
     def test_string_to_chords_list_multiple(self):
 
@@ -27,7 +25,6 @@ class TestStringToChordsList(unittest.TestCase):
 
         check = "(D#0, F#0, A0, 1.0) + (B0, D#1, F#1, 0.25) + "
         self.assertEqual(output, check)
-        
 
     def test_string_to_chords_list_octave(self):
 
@@ -36,8 +33,8 @@ class TestStringToChordsList(unittest.TestCase):
 
         output = ""
         for chord in chords:
-            output += chord.__repr__() + ' + '
-        
+            output += chord.__repr__() + " + "
+
         check = "(C0, E0, G0, 2.0) + (D0, F0, A0, 2.0) + (G-1, B-1, D0, 2.0) + "
 
         self.assertEqual(output, check)

@@ -1,11 +1,12 @@
 import os
-from transpose import transpose_chord, transpose_melody 
+from transpose import transpose_chord, transpose_melody
 from constants import MusicType
-from music_type import music_type 
+from music_type import music_type
 from read_update_files import update_latest_file_used, update_repeat
 
+
 def confirm_file(file_path, music_type_of_file):
-    with open ("record.txt", "r") as f:
+    with open("record.txt", "r") as f:
         record = f.read()
     lines = record.split("\n")
     latest_entry = lines[0].strip()
@@ -13,55 +14,51 @@ def confirm_file(file_path, music_type_of_file):
     if music_type(latest_entry) != music_type_of_file:
         raise Exception("You cannot add chords to a melody file or vice versa.")
 
-    
     if not os.path.exists(file_path):
         try:
             dir_name = "/".join(file_path.split("/")[:-1])
             os.makedirs(dir_name)
-            print(f"This is your first {music_type_of_file.value} file! You should see a new {dir_name} folder in your music helper.")
+            print(
+                f"This is your first {music_type_of_file.value} file! You should see a new {dir_name} folder in your music helper."
+            )
         except:
             print(f"Thanks for adding a new {music_type_of_file.value} file!")
 
         with open(file_path, "w") as f:
             f.write(latest_entry)
 
-
-        
-
     else:
-        with open(file_path, "r") as f: 
+        with open(file_path, "r") as f:
             original_contents = f.read()
         original_lines = [line for line in original_contents.split("\n") if line]
         original_lines.append(latest_entry)
-        
+
         new_content = ("\n").join(original_lines)
         with open(file_path, "w") as f:
             f.write(new_content)
-
-        
-
 
 
 def undo_file(file_path):
     with open(file_path, "r") as f:
         text = f.read()
     lines = text.split("\n")
-    with open (file_path, "w") as f:
+    with open(file_path, "w") as f:
         new_text = ("\n").join(lines[:-1])
-        f.write(new_text) 
+        f.write(new_text)
+
 
 def delete_file(file_path):
-    with open (file_path, "w") as f:
+    with open(file_path, "w") as f:
         f.write("")
 
 
 def create_singing_practice_file(file_path, filename):
-    with open (file_path, "r") as f:
+    with open(file_path, "r") as f:
         melody = f.read()
     melody_lines = [melody for melody in melody.split("\n") if melody]
     new_melody_lines = []
-    for i in range (-12, 12, 1):
-        for melody_line in melody_lines: 
+    for i in range(-12, 12, 1):
+        for melody_line in melody_lines:
             new_melody_line = transpose_melody(melody_line, i)
             new_melody_lines.append(new_melody_line)
 
@@ -71,28 +68,31 @@ def create_singing_practice_file(file_path, filename):
     update_latest_file_used(new_filename)
     new_file_path = os.path.join("melodies", new_filename)
 
-
     with open(new_file_path, "w") as f:
         f.write(new_contents)
-    
+
 
 def transpose_file(command, file_path, filename, music_type_of_file):
 
-    
-
     semitones = int(command[9:])
-    with open (file_path, "r") as f: 
-            text = f.read()
+    with open(file_path, "r") as f:
+        text = f.read()
     lines = text.split("\n")
     new_lines = []
     for line in lines:
         if line:
-            new_line = transpose_melody(line, semitones) if music_type_of_file == MusicType.MELODY else transpose_chord(line, semitones)
+            new_line = (
+                transpose_melody(line, semitones)
+                if music_type_of_file == MusicType.MELODY
+                else transpose_chord(line, semitones)
+            )
             new_lines.append(new_line)
 
     new_content = "\n".join(new_lines)
 
-    new_file_name = filename.split(".")[0] + "_" + command[9:] + "." + f"{music_type_of_file.value}"
+    new_file_name = (
+        filename.split(".")[0] + "_" + command[9:] + "." + f"{music_type_of_file.value}"
+    )
     update_latest_file_used(new_file_name)
 
     dir_name = "/".join(file_path.split("/")[:-1])
@@ -101,42 +101,38 @@ def transpose_file(command, file_path, filename, music_type_of_file):
         f.write(new_content)
 
 
-
-def file_edit(command, file):      #We have ensured its a valid melody or chord file
+def file_edit(command, file):  # We have ensured its a valid melody or chord file
 
     if file.split(".")[1] == "chord":
         music_type_of_file = MusicType.CHORD
-        file_path = os.path.join("chords", file) 
-
+        file_path = os.path.join("chords", file)
 
     if file.split(".")[1] == "melody":
         music_type_of_file = MusicType.MELODY
         file_path = os.path.join("melodies", file)
 
-    if command == "confirm": 
+    if command == "confirm":
         confirm_file(file_path, music_type_of_file)
-            
 
     elif command == "undo":
         undo_file(file_path)
 
-
     elif command == "delete":
         delete_file(file_path)
-            
 
     elif command == "singing":
         if music_type_of_file == MusicType.CHORD:
-            raise Exception("you cannot create scale exercises from a chord progression")
-        create_singing_practice_file(file_path, file)    
+            raise Exception(
+                "you cannot create scale exercises from a chord progression"
+            )
+        create_singing_practice_file(file_path, file)
 
     elif command == "read":
-        with open (file_path, "r") as f:
+        with open(file_path, "r") as f:
             contents = f.read()
             print(contents)
 
-
-    elif command[0:9] == "transpose": 
+    elif command[0:9] == "transpose":
         transpose_file(command, file_path, file, music_type_of_file)
 
     else:

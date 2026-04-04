@@ -1,5 +1,4 @@
-
-import os 
+import os
 
 """
 Records the latest melody tried at the top of a file "record.txt"
@@ -8,20 +7,19 @@ If user is happy with their try and want to note it down in the final file,
 They can "confirm" the latest entry to that file
 """
 
-def record_music_attempt(music_tried): 
 
+def record_music_attempt(music_tried):
 
     if os.path.exists("record.txt"):
-        with open ("record.txt", "r") as f:
+        with open("record.txt", "r") as f:
             text = f.read()
             lines = text.split()
             if len(lines) > 19:
                 text = ("\n").join(lines[0:19])
-                
-    else: 
+
+    else:
         text = ""
 
-    with open ("record.txt", "w") as f:
+    with open("record.txt", "w") as f:
         new_text = music_tried + "\n" + text
-        f.write(new_text) 
-    
+        f.write(new_text)

@@ -7,32 +7,32 @@ from string_to_chords_list import string_to_chords_list
 from string_to_notes_list import string_to_notes_list
 from parse_inputs import check_file_validity
 
+
 def playback(track, bpm, set_repeat):
 
     if set_repeat == "Y":
         i = 0
         while i < len(track):
             track[i].play(bpm)
-            if i == len(track) -1:
+            if i == len(track) - 1:
                 i = 0
             else:
                 i += 1
-                    
-                    
+
     elif set_repeat == "N":
         for music in track:
-            music.play(bpm) 
-        print("Track completed, press Enter")         
+            music.play(bpm)
+        print("Track completed, press Enter")
+
 
 def source_to_playable_string(source):
-    #Convert each source to a playable string   
-                
-    #checks if input resembles a valid file or refers to last used file
+    # Convert each source to a playable string
+
+    # checks if input resembles a valid file or refers to last used file
     if check_file_validity(source) or source == "f":
         music_source = PlayType.FILE
         path = file_music_type(read_latest_file_used())[1]
         playable = file_to_string(path)
-        
 
     else:
         music_source = PlayType.CLI
@@ -40,7 +40,6 @@ def source_to_playable_string(source):
         print(music_source)
 
     return music_source, playable
-            
 
 
 def playable_string_to_track(playable_string):

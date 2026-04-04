@@ -1,11 +1,10 @@
-from generator import waveform_generator, freq_duration_generator 
+from generator import waveform_generator, freq_duration_generator
 import numpy as np
 import sounddevice as sd
 from chord import Chord
 from note import Note
 from constants import *
 from string_to_chords_list import string_to_chords_list
-
 
 chord_string = "(D#F#A)---(BD#hF#h)"
 chords = string_to_chords_list(chord_string)

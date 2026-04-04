@@ -1,15 +1,14 @@
-import unittest 
-from note import Note 
+import unittest
+from note import Note
 
 
-class TestNote(unittest.TestCase): 
+class TestNote(unittest.TestCase):
 
-    def test_note_transpose_same_octave(self): 
+    def test_note_transpose_same_octave(self):
         note = Note("C", 0, 0.25)
         transposed_note = note.transpose(3)
         new_note = Note("D#", 0, 0.25)
         self.assertEqual(transposed_note.__repr__(), new_note.__repr__())
-
 
     def test_note_transpose_lower_octave(self):
         note = Note("C", 0, 0.25)
@@ -27,5 +26,3 @@ class TestNote(unittest.TestCase):
         note = Note("D", 2, 1.25)
         notation_string = "Dhh----"
         self.assertEqual(note.note_to_notation_string(), notation_string)
-
-        

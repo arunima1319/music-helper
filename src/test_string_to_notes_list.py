@@ -2,6 +2,7 @@ import unittest
 from src.string_to_notes_list import string_to_notes_list
 from note import Note
 
+
 class TestStringToNotesList(unittest.TestCase):
 
     def test_string_to_notes_list(self):
@@ -9,12 +10,11 @@ class TestStringToNotesList(unittest.TestCase):
         notes_list = string_to_notes_list(string)
         notes_output = []
         for note in notes_list:
-            notes_output.append((note.pitch, note.octave, note.length)) 
+            notes_output.append((note.pitch, note.octave, note.length))
 
         notes_info = [("C", 0, 0.5), ("E", 0, 0.5), ("D", 0, 1.0)]
-        
-        self.assertEqual(notes_output, notes_info)
 
+        self.assertEqual(notes_output, notes_info)
 
     def test_string_to_notes_list_sharp(self):
         string = "C#----B#"
@@ -25,7 +25,6 @@ class TestStringToNotesList(unittest.TestCase):
 
         notes_info = [("C#", 0, 1.25), ("B#", 0, 0.25)]
         self.assertEqual(notes_output, notes_info)
-
 
     def test_string_to_notes_list_mixed(self):
         string = "C-C#--D-"
@@ -45,7 +44,7 @@ class TestStringToNotesList(unittest.TestCase):
             notes_output.append((note.pitch, note.octave, note.length))
 
         notes_info = [("C", 1, 0.25), ("B#", 0, 0.75), ("A", -1, 0.5)]
-        self.assertEqual(notes_output, notes_info) 
+        self.assertEqual(notes_output, notes_info)
 
     def test_string_to_notes_list_2(self):
         string = "C---Ch---"
@@ -61,6 +60,3 @@ class TestStringToNotesList(unittest.TestCase):
         string = "Ci-D-"
 
         self.assertRaises(Exception, string_to_notes_list, string)
-
-
-
